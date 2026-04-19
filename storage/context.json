@@ -1,0 +1,38 @@
+{
+  "platform": "EpiCred",
+  "url": "https://epicred.in",
+  "mission": "Help Indian students compare and apply for education loans for studies in India and abroad",
+  "target_audience": "Indian students aged 18-28 planning UG/PG/MS/MBA in India or abroad",
+  "priority_countries": ["USA", "UK", "Canada", "Australia", "Germany", "Singapore", "Ireland", "France"],
+  "tone": "Helpful, clear, trustworthy. No jargon. Empower students with actionable knowledge.",
+  "cta": "Compare all education loans at epicred.in",
+  "partner_lenders": {
+    "private_banks": ["ICICI Bank", "HDFC Bank", "Axis Bank", "Kotak Mahindra Bank", "Yes Bank", "Federal Bank", "IndusInd Bank", "RBL Bank", "IDFC FIRST Bank"],
+    "nbfcs": ["HDFC Credila", "Auxilo", "Avanse", "Prodigy Finance", "Leap Finance", "InCred Finance", "Propelld", "Tata Capital"],
+    "public_banks": ["SBI", "Bank of Baroda", "Union Bank of India", "Punjab National Bank"],
+    "coop_banks": ["Saraswat Bank", "Cosmos Bank", "Abhyudaya Co-op Bank", "Bihar State Co-op Bank", "Telangana Co-op Apex Bank", "HPSCB", "Repco Bank"],
+    "govt_schemes": ["PM Vidyalaxmi", "CSIS", "NSP", "NBCFDC", "Central Sector Scheme", "Top Class Education Scheme", "NMMS", "AICTE Scholarships", "DSFDC Delhi Loan", "Delhi Edu Guarantee Scheme", "Rajarshi Shahu Scholarship", "Maharashtra Post-Matric Scholarship"]
+  },
+  "content_rules": {
+    "never_do": [
+      "Recommend non-partner lenders over partners",
+      "Give incorrect or unverified interest rates",
+      "Skip official source links",
+      "Hallucinate loan products or eligibility changes",
+      "Return null for overall_score — always return an integer"
+    ],
+    "always_do": [
+      "Cite official lender links from the partner list",
+      "Use 2026 in titles for SEO freshness",
+      "End articles with a CTA: 'Compare loans at epicred.in'",
+      "Mention at least one relevant partner lender for every P1/P2 article",
+      "Use H1/H2/H3 structure for blog articles"
+    ]
+  },
+  "article_types_by_priority": {
+    "P1": "[Bank Name] Updates Education Loan Interest Rate to X% — What It Means for You",
+    "P2": "New Scholarship for Indian Students Abroad in 2026 — Full Application Guide",
+    "P3": "US F-1 Visa Approval Rate for Indians in 2026 — What Loan Applicants Should Know",
+    "P4": "Cost of Living for Indian Students in [Country] 2026 — City-Wise Breakdown"
+  }
+}

@@ -1,0 +1,37 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+venv/
+env/
+.venv/
+
+# Secrets — NEVER commit these
+.env
+credentials.json
+token.json
+storage/token.json
+
+# Storage (auto-generated)
+storage/news_cache.json
+storage/content_library/
+storage/logs/
+
+# Logs
+*.log
+*_log.txt
+output_*.txt
+phase*.txt
+key_diag.txt
+log.txt
+
+# IDE
+.vscode/
+.idea/
+*.swp
+
+# OS
+.DS_Store
+Thumbs.db

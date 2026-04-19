@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>EpiCred Content Bot</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { outfit: ['Outfit', 'sans-serif'] },
+          colors: { brand: { 50: '#eef2ff', 500: '#6366f1', 600: '#4f46e5', 900: '#312e81' } }
+        }
+      }
+    }
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body class="bg-slate-50 text-slate-800 font-outfit antialiased selection:bg-brand-500 selection:text-white">
+  <div class="flex h-screen overflow-hidden">
+
+    <!-- Sidebar -->
+    <aside class="w-64 bg-slate-900 text-white flex flex-col shadow-2xl z-20">
+      <div class="p-6 flex items-center gap-3">
+        <div
+          class="w-8 h-8 rounded-lg bg-gradient-to-br from-brand-500 to-fuchsia-600 flex items-center justify-center shadow-lg shadow-brand-500/30">
+          <i class="fa-solid fa-bolt text-white text-sm"></i>
+        </div>
+        <h1 class="text-xl font-bold tracking-tight">EpiCred<span class="text-brand-400">AI</span></h1>
+      </div>
+
+      <nav class="flex-1 px-4 mt-6 space-y-2">
+        <button onclick="switchTab('news')" id="nav-news"
+          class="w-full flex items-center gap-3 px-4 py-3 bg-brand-600/20 text-brand-300 rounded-xl transition-all duration-200 group">
+          <i class="fa-solid fa-satellite-dish w-5 group-hover:scale-110 transition-transform"></i>
+          <span class="font-medium">Trend Radar</span>
+        </button>
+        <button onclick="switchTab('library')" id="nav-library"
+          class="w-full flex items-center gap-3 px-4 py-3 text-slate-400 hover:bg-slate-800 hover:text-slate-200 rounded-xl transition-all duration-200 group">
+          <i class="fa-solid fa-layer-group w-5 group-hover:scale-110 transition-transform"></i>
+          <span class="font-medium">Content Vault</span>
+        </button>
+      </nav>
+
+      <div class="p-6">
+        <div class="bg-slate-800 rounded-xl p-4 text-xs text-slate-400 border border-slate-700">
+          <p class="font-medium text-slate-300 mb-1">Status</p>
+          <p class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-green-400 animate-pulse"></span>
+            Pipeline Active</p>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Workspace -->
+    <main class="flex-1 flex flex-col relative h-full overflow-hidden bg-slate-50">
+
+      <!-- Dynamic Header -->
+      <header
+        class="h-20 bg-white/80 backdrop-blur-md border-b border-slate-200 flex items-center justify-between px-8 z-10 sticky top-0">
+        <div class="flex items-center gap-4">
+          <div class="p-2 bg-slate-100 rounded-lg text-slate-500" id="header-icon">
+            <i class="fa-solid fa-satellite-dish"></i>
+          </div>
+          <h2 id="page-title" class="text-2xl font-semibold text-slate-800">Trend Radar</h2>
+        </div>
+        <div class="flex items-center gap-4" id="header-actions">
+          <button onclick="fetchNews(true)"
+            class="px-5 py-2.5 bg-white border border-slate-200 text-slate-700 rounded-xl font-medium shadow-sm hover:shadow hover:border-slate-300 transition-all active:scale-95 flex items-center gap-2">
+            <i class="fa-solid fa-rotate-right"></i> Scrape Fresh
+          </button>
+        </div>
+      </header>
+
+      <!-- Scrollable Container -->
+      <div class="flex-1 overflow-y-auto p-8 relative">
+
+        <!-- NEWS TAB -->
+        <div id="tab-news" class="tab-content block pb-20">
+          <div id="news-loading" class="flex flex-col items-center justify-center py-20 hidden">
+
+            <!-- n8n style workflow visualizer -->
+            <div class="flex items-center gap-2 mb-8 scale-90 md:scale-100">
+              <!-- Node 1: Ingestion -->
+              <div class="flex flex-col items-center w-24">
+                <div id="node-1"
+                  class="w-16 h-16 rounded-xl bg-slate-800 border-2 border-slate-700 flex items-center justify-center shadow-lg transition-all duration-500 relative z-10 flex-shrink-0">
+                  <i class="fa-solid fa-rss text-2xl text-slate-400" id="icon-1"></i>
+                </div>
+                <span class="text-xs font-semibold text-slate-500 mt-3 text-center">NewsData API</span>
+              </div>
+
+              <!-- Connection 1 -->
+              <div class="h-1 w-16 bg-slate-200 rounded-full relative overflow-hidden flex-shrink-0">
+                <div id="wire-1"
+                  class="absolute inset-y-0 left-0 bg-brand-500 w-0 transition-all duration-700 ease-in-out rounded-full shadow-[0_0_8px_rgba(99,102,241,0.8)]">
+                </div>
+              </div>
+
+              <!-- Node 2: Database Build -->
+              <div class="flex flex-col items-center w-24">
+                <div id="node-2"
+                  class="w-16 h-16 rounded-xl bg-slate-800 border-2 border-slate-700 flex items-center justify-center shadow-lg transition-all duration-500 relative z-10 flex-shrink-0">
+                  <i class="fa-solid fa-database text-2xl text-slate-400" id="icon-2"></i>
+                </div>
+                <span class="text-xs font-semibold text-slate-500 mt-3 text-center">Deduplication</span>
+              </div>
+
+              <!-- Connection 2 -->
+              <div class="h-1 w-16 bg-slate-200 rounded-full relative overflow-hidden flex-shrink-0">
+                <div id="wire-2"
+                  class="absolute inset-y-0 left-0 bg-brand-500 w-0 transition-all duration-700 ease-in-out rounded-full shadow-[0_0_8px_rgba(99,102,241,0.8)]">
+                </div>
+              </div>
+
+              <!-- Node 3: AI Scoring -->
+              <div class="flex flex-col items-center w-24">
+                <div id="node-3"
+                  class="w-16 h-16 rounded-xl bg-slate-800 border-2 border-slate-700 flex items-center justify-center shadow-lg transition-all duration-500 relative z-10 flex-shrink-0">
+                  <i class="fa-solid fa-brain text-2xl text-slate-400" id="icon-3"></i>
+                </div>
+                <span class="text-xs font-semibold text-slate-500 mt-3 text-center">Gemini Scoring</span>
+              </div>
+
+              <!-- Connection 3 -->
+              <div class="h-1 w-16 bg-slate-200 rounded-full relative overflow-hidden flex-shrink-0">
+                <div id="wire-3"
+                  class="absolute inset-y-0 left-0 bg-brand-500 w-0 transition-all duration-700 ease-in-out rounded-full shadow-[0_0_8px_rgba(99,102,241,0.8)]">
+                </div>
+              </div>
+
+              <!-- Node 4: Output -->
+              <div class="flex flex-col items-center w-24">
+                <div id="node-4"
+                  class="w-16 h-16 rounded-xl bg-slate-800 border-2 border-slate-700 flex items-center justify-center shadow-lg transition-all duration-500 relative z-10 flex-shrink-0">
+                  <i class="fa-solid fa-filter text-2xl text-slate-400" id="icon-4"></i>
+                </div>
+                <span class="text-xs font-semibold text-slate-500 mt-3 text-center">Threshold Filter</span>
+              </div>
+            </div>
+
+            <p id="pipeline-status-text" class="text-lg font-medium text-slate-600 animate-pulse">Initializing pipeline
+              orchestrator...</p>
+          </div>
+          <div id="news-grid" class="grid grid-cols-1 xl:grid-cols-2 gap-6 hidden">
+            <!-- Filled by JS -->
+          </div>
+        </div>
+
+        <!-- LIBRARY TAB -->
+        <div id="tab-library" class="tab-content hidden min-h-[60vh]">
+          <div id="library-empty" class="h-full flex flex-col items-center justify-center text-slate-400 py-32">
+            <div class="w-24 h-24 bg-slate-100 rounded-full flex items-center justify-center mb-6">
+              <i class="fa-solid fa-ghost text-4xl text-slate-300"></i>
+            </div>
+            <p class="text-xl font-medium text-slate-600">The vault is empty</p>
+            <p class="text-sm mt-2">Generate some content from the Trend Radar.</p>
+          </div>
+          <div id="library-content" class="hidden"></div>
+        </div>
+
+      </div>
+    </main>
+  </div>
+
+  <!-- Generation Modal Overlay -->
+  <div id="modal-overlay"
+    class="fixed inset-0 bg-slate-900/40 backdrop-blur-sm z-50 hidden flex flex-col items-center justify-center opacity-0 transition-opacity duration-300">
+
+    <!-- Generate state -->
+    <div id="modal-generate"
+      class="bg-white p-8 rounded-2xl shadow-2xl max-w-md w-full flex flex-col items-center transform scale-95 transition-transform duration-300 hidden">
+      <div class="w-16 h-16 border-4 border-brand-100 border-t-brand-600 rounded-full animate-spin mb-6"></div>
+      <h3 class="text-xl font-bold text-slate-800 mb-2 text-center" id="modal-title">Repurposing Content...</h3>
+      <p id="modal-subtitle" class="text-sm text-slate-500 text-center mb-6">Executing 6 parallel Gemini invocations.
+      </p>
+
+      <div class="w-full space-y-3">
+        <div class="flex items-center gap-3 text-sm text-slate-600"><i
+            class="fa-solid fa-check text-green-500 opacity-0 transition-opacity" id="step-1"></i>
+          <p>Structuring JSON Bundles</p>
+        </div>
+        <div class="flex items-center gap-3 text-sm text-slate-600"><i
+            class="fa-solid fa-check text-green-500 opacity-0 transition-opacity" id="step-2"></i>
+          <p>Generating Platform Variations</p>
+        </div>
+        <div class="flex items-center gap-3 text-sm text-slate-600"><i
+            class="fa-solid fa-check text-green-500 opacity-0 transition-opacity" id="step-3"></i>
+          <p>Finalizing Output Schema</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Confirm Modal -->
+    <div id="modal-confirm"
+      class="bg-white p-8 rounded-2xl shadow-2xl max-w-sm w-full flex flex-col transform scale-95 transition-transform duration-300 hidden">
+      <div class="w-12 h-12 bg-green-100 text-green-600 rounded-full flex items-center justify-center mb-4">
+        <i class="fa-solid fa-check text-xl"></i>
+      </div>
+      <h3 class="text-xl font-bold text-slate-800 mb-2">Sync Complete</h3>
+      <p class="text-sm text-slate-500 mb-6">Assets have been dispatched to Google Drive and Calendar.</p>
+      <button onclick="closeModal()"
+        class="w-full py-3 bg-slate-900 text-white rounded-xl font-medium hover:bg-slate-800 transition-colors">Close
+        Vault</button>
+    </div>
+
+    <!-- Editor Modal -->
+    <div id="modal-editor"
+      class="bg-white rounded-2xl shadow-2xl max-w-2xl w-full flex flex-col transform scale-95 transition-transform duration-300 hidden max-h-[90vh]">
+      <div class="p-6 border-b border-slate-100 flex justify-between items-center bg-slate-50 rounded-t-2xl">
+        <div>
+          <h3 class="text-xl font-bold text-slate-800" id="editor-title">Edit Content</h3>
+          <p class="text-sm text-slate-500 mt-1">Modify the AI script output below. Keep the JSON structure intact.</p>
+        </div>
+        <button onclick="closeModal()"
+          class="w-8 h-8 rounded-lg text-slate-400 hover:bg-slate-200 hover:text-slate-600 transition-colors flex items-center justify-center">
+          <i class="fa-solid fa-times"></i>
+        </button>
+      </div>
+      <div class="p-6 flex-1 overflow-y-auto">
+        <textarea id="editor-textarea"
+          class="w-full h-96 p-4 bg-slate-800 text-green-400 font-mono text-sm rounded-xl focus:ring-2 focus:ring-brand-500 focus:outline-none"
+          spellcheck="false"></textarea>
+        <div id="editor-error"
+          class="hidden mt-3 text-red-500 text-sm font-semibold p-3 bg-red-50 rounded-lg border border-red-100">
+          <i class="fa-solid fa-triangle-exclamation mr-1"></i> Invalid JSON string! Please fix formatting before
+          saving.
+        </div>
+      </div>
+      <div class="p-6 border-t border-slate-100 bg-slate-50 rounded-b-2xl flex justify-end gap-3">
+        <button onclick="closeModal()"
+          class="px-5 py-2.5 bg-white border border-slate-200 text-slate-700 rounded-xl font-medium hover:bg-slate-100 transition-colors">Cancel</button>
+        <button id="editor-save-btn"
+          class="px-5 py-2.5 bg-brand-600 text-white rounded-xl font-medium hover:bg-brand-700 transition-colors shadow-lg shadow-brand-500/20">Save
+          Changes</button>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+
+</html>
