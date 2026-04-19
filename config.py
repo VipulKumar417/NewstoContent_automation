@@ -44,7 +44,13 @@ FLASK_PORT       = int(os.getenv("FLASK_PORT", 5000))
 
 # ── Storage Paths ─────────────────────────────────────────────────────────────
 BASE_DIR          = os.path.dirname(os.path.abspath(__file__))
-STORAGE_DIR       = os.path.join(BASE_DIR, "storage")
+
+# Vercel Serverless environments only allow writing to /tmp
+if os.environ.get("VERCEL"):
+    STORAGE_DIR = "/tmp/epicred_storage"
+else:
+    STORAGE_DIR = os.path.join(BASE_DIR, "storage")
+
 NEWS_CACHE_PATH   = os.path.join(STORAGE_DIR, "news_cache.json")
 CONTENT_LIB_DIR   = os.path.join(STORAGE_DIR, "content_library")
 LOGS_DIR          = os.path.join(STORAGE_DIR, "logs")

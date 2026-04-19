@@ -22,10 +22,10 @@ def get_news():
     # Only hit the external APIs when the cache is genuinely stale (>24 h)
     # or the user explicitly clicks "Force Refresh". This preserves daily quota.
     if force or not is_cache_fresh():
-        fetch_all_news(force=True)
-    
-    # Load raw articles (may include previously-scored ones from cache)
-    articles = load_cache()
+        articles = fetch_all_news(force=True)
+    else:
+        # Load raw articles (may include previously-scored ones from cache)
+        articles = load_cache()
     
     if not articles:
         return jsonify({"articles": [], "warning": "No news articles available yet. Try again later."})
