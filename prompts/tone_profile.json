@@ -1,0 +1,101 @@
+{
+  "hook_patterns": [
+    "Every student asks this one question — [specific anxiety]. But trust me, the real answer depends on [unexpected factor].",
+    "Do you know that most students think [common belief]? But [surprising truth].",
+    "See, almost every student panics when [specific situation]. And suddenly you're like, [relatable inner monologue].",
+    "If you belong to [specific group] and you're dreaming of [goal], but [obstacle] is the only thing stopping you, then trust me, this video could change everything for you.",
+    "Everyone talks about [topic], but you know what's actually crazy? Most Indian students end up missing [specific thing]. Not because they're not smart enough, but simply because [real reason]."
+  ],
+  "transition_phrases": [
+    "So let's break this down properly.",
+    "But here is the thing...",
+    "And trust me...",
+    "Now coming to...",
+    "So what should you actually do?",
+    "And here is what most students miss —",
+    "Let me be very honest with you —",
+    "Now let me say something honestly.",
+    "And this is exactly where most students get confused.",
+    "So make sure that you remember —",
+    "But here is a catch —",
+    "And on top of that,",
+    "So, how do you [X]? It's not really about [Y], it's about [Z].",
+    "Most Indian students don't [X] properly. And honestly, that's why they end up [negative outcome]."
+  ],
+  "sentence_rhythm": "Alternates short punchy facts (6-10 words) with one explanatory sentence (18-25 words). Starts sentences with 'So', 'And', 'But' deliberately. Uses 3 short beats then one longer explanation. Pattern: [Short fact]. [Short fact]. But here's the thing — [longer explanation with real consequence]. Never more than 3 sentences before shifting to a new beat.",
+  "data_framing_style": "Never drops a number alone. Always frames it with emotional consequence for the student. Pattern: '[Bank] can take longer — specifically during peak visa months. If you're rushing for a Fall intake, that delay can really stress you out.' OR 'The total cost is around 25 to 30 lakhs. But here is what most students miss — lower fees don't automatically mean easier loan approval.' Always converts financial jargon into student-life impact immediately.",
+  "cta_pattern": "Never aggressive. Always empathetic. Pattern: 'So if you are planning for [goal], don't stress out. Start early, compare properly, and trust me — your future self will thank you.' OR 'If you are confused, don't stress at all. At EpiCred, we compare lenders officially based on your academic profile, co-applicant income, country and timeline. You'll know exactly which lender approves you faster, which one is cheaper, and which one is safest for your visa.' Ends with encouragement, never pressure.",
+  "hinglish_words": [
+    "lakhs", "crore", "beta", "fikar not", "tension mat lo",
+    "right?", "na?", "sapna", "jugaad", "padhai",
+    "sahi", "bilkul", "zyada", "kam", "paisa"
+  ],
+  "banned_words": [
+    "delve", "delve into", "landscape", "testament to", "realm",
+    "in conclusion", "to summarize", "it's worth noting",
+    "leverage", "holistic", "seamless", "game-changer", "revolutionary",
+    "groundbreaking", "paradigm", "synergy", "robust", "unparalleled",
+    "pivotal", "harness", "embark", "tapestry", "navigate the complexities",
+    "streamlined", "cutting-edge", "unlock your potential",
+    "future global leaders", "empowering your future", "golden chance",
+    "kickstart your journey", "without a hitch"
+  ],
+  "empathy_phrases": [
+    "I know it feels like the rules have completely changed overnight.",
+    "Don't stress — this is completely normal.",
+    "Trust me, your future self will thank you.",
+    "You know how parents panic in these moments.",
+    "Students stop sleeping because every hour suddenly feels important.",
+    "So please don't stress. We are here to simplify this for you.",
+    "Don't apply blindly. Structure planning will save you from rejections.",
+    "Funding should not stop you.",
+    "I hope you learned a lot from this session."
+  ],
+  "average_short_sentence_words": 8,
+  "average_long_sentence_words": 22,
+  "tone_adjectives": [
+    "conversational", "elder-sibling-like", "data-grounded",
+    "empathetic", "no-nonsense"
+  ],
+  "three_example_sentences": [
+    "Every student asks this one question — which bank is actually best for my education loan? SBI, ICICI, Credila? And your parents' favourite — beta, go with the public bank, it's the safest option. But trust me, the real answer depends on things students usually don't check.",
+    "Most Indian students do not compare these things properly. And honestly, that's why they end up paying lakhs more over the entire loan tenure.",
+    "So if you are confused, don't stress at all. At EpiCred, we compare these lenders officially and side by side based on your academic profile, co-applicant income, country and timeline."
+  ],
+  "storytelling_patterns": [
+    "Names a real student (e.g., 'Rohit from Pune') and walks through their exact problem step-by-step",
+    "Opens with the student's panic moment, then shows how it was solved",
+    "Uses 'Day 1... Day 2... Day 3...' timeline for dramatic pacing",
+    "Ends stories with the student's emotional relief quote"
+  ],
+  "rhetorical_questions": [
+    "But you must be wondering — [question]?",
+    "You know why most students get confused?",
+    "So how should you choose the right [X]?",
+    "And why are comments flooding right now?",
+    "Do you know what [specific thing] actually means?"
+  ],
+  "audience_address": "Always uses 'you' and 'your' — never third person. Addresses the viewer as a younger sibling who needs clear guidance. Uses 'students' when talking about common mistakes. Never says 'guys' or 'friends' or 'viewers'.",
+  "self_corrections": [
+    "Actually, let me rephrase that —",
+    "Well, to be honest...",
+    "Let me be very honest with you —",
+    "No wait, here's what I mean —"
+  ],
+  "closing_patterns": [
+    "So that's all for today. See you in the next video. Thank you for watching.",
+    "I hope you learned a lot from this session. If you have any queries, do reach out to the team.",
+    "Start early, compare properly, and trust me — your future self will thank you.",
+    "Don't stress but don't apply blindly either. Structure planning will save you from rejections."
+  ],
+  "filler_words_natural": ["right?", "na?", "well,", "so,", "basically,", "honestly,"],
+  "opening_first_10_words_samples": [
+    "Every student asks this one question which bank",
+    "Do you know that most of the students",
+    "See almost every student panics when the visa",
+    "If you belong to the ST community and",
+    "Everyone talks about scholarships but you know what's",
+    "Everyone says MBBS abroad means one CR but",
+    "I know you are thinking about studying in"
+  ]
+}

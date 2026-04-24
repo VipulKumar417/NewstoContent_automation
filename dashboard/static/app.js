@@ -2,6 +2,20 @@
 
 let globalArticles = [];
 let generatedVault = [];
+let showingArchived = false;
+
+function toggleArchived() {
+    showingArchived = !showingArchived;
+    const btn = document.getElementById('btn-archive');
+    if (btn) {
+        if (showingArchived) {
+            btn.innerHTML = '<i class="fa-solid fa-eye-slash"></i> Hide Older Articles';
+        } else {
+            btn.innerHTML = '<i class="fa-solid fa-clock-rotate-left"></i> Load Older Articles';
+        }
+    }
+    renderNewsGrid(globalArticles);
+}
 
 document.addEventListener('DOMContentLoaded', () => {
     fetchNews(false);
@@ -106,20 +120,26 @@ function renderNewsGrid(articles) {
     grid.classList.remove('hidden');
     grid.classList.remove('grid', 'grid-cols-1', 'xl:grid-cols-2'); // Swap layout to block
 
-    if (!articles || articles.length === 0) {
+    // Filter by archived status
+    let activeArticles = articles;
+    if (!showingArchived) {
+        activeArticles = articles.filter(a => !a.is_archived);
+    }
+
+    if (!activeArticles || activeArticles.length === 0) {
         grid.innerHTML = `
         <div class="py-20 text-center flex flex-col items-center">
             <div class="w-20 h-20 bg-slate-100 rounded-full flex items-center justify-center mb-4 text-slate-300">
                 <i class="fa-solid fa-calendar-xmark text-3xl"></i>
             </div>
-            <p class="text-slate-600 font-medium text-lg">No relevant content found recently.</p>
-            <p class="text-slate-400 text-sm mt-2 max-w-xs mx-auto">Gemini filtered out non-Fintech/UPSC news. NewsData.io Free Tier restricts us to the last 48 hours.</p>
+            <p class="text-slate-600 font-medium text-lg">No fresh content found.</p>
+            <p class="text-slate-400 text-sm mt-2 max-w-xs mx-auto">Try loading older articles or check back later.</p>
         </div>`;
         return;
     }
 
-    const topTier = articles.filter(a => (a.score?.overall_score || 0) >= 7);
-    const midTier = articles.filter(a => {
+    const topTier = activeArticles.filter(a => (a.score?.overall_score || 0) >= 7);
+    const midTier = activeArticles.filter(a => {
         const s = a.score?.overall_score || 0;
         return s >= 6 && s < 7;
     });
@@ -370,4 +390,26 @@ function openEditor(vaultIdx, platform) {
 
     document.getElementById('modal-overlay').classList.remove('hidden');
     setTimeout(() => { document.getElementById('modal-overlay').classList.remove('opacity-0'); }, 10);
+}
+
+// Brand Voice Tone Profile UI action
+async function refreshTone() {
+    try {
+        // Provide visual feedback for long running scrape action
+        document.getElementById('tone-updated').innerText = "Scraping YouTube... this may take 30s";
+        
+        const res = await fetch('/refresh-tone', { method: 'POST' });
+        const data = await res.json();
+        
+        if (data.status === "success") {
+            document.getElementById('tone-updated').innerText = "Just now. Ready!";
+            alert("Success: " + data.message);
+        } else {
+            document.getElementById('tone-updated').innerText = "Failed";
+            alert("Error: " + data.message);
+        }
+    } catch (e) {
+        alert("Fetch Error: " + e.message);
+        document.getElementById('tone-updated').innerText = "Error";
+    }
 }

@@ -520,6 +520,10 @@ def fetch_all_news(force: bool = False) -> list[dict]:
     # Persistent Cache Logic: Load existing articles first so we never show an empty screen
     all_articles = load_cache()
     
+    # Relegate existing articles to 'archived' status so fresh fetches take priority on the UI
+    for a in all_articles:
+        a["is_archived"] = True
+    
     logger.info("Fetching fresh news from all sources…")
     all_articles.extend(fetch_newsdata())
     all_articles.extend(fetch_gnews())

@@ -1,0 +1,26 @@
+You are a professional brand voice analyst.
+
+Below are transcripts from EpiCred's YouTube channel, presented by Simran Jakhar 
+(Co-Founder, IIT Delhi). Your task is to analyze HOW she speaks — not what she says.
+
+TRANSCRIPTS:
+{transcripts}
+
+Analyze and return a strict JSON tone profile with these exact keys:
+
+{
+  "hook_patterns": ["list of 5 exact opening structures she uses"],
+  "transition_phrases": ["exact phrases she uses to move between points — verbatim"],
+  "sentence_rhythm": "describe the short-long-short pattern she uses",
+  "data_framing_style": "how she introduces numbers and facts with emotional context",
+  "cta_pattern": "exact structure of how she closes and directs to EpiCred",
+  "hinglish_words": ["Hindi/English hybrid words she naturally uses"],
+  "banned_words": ["words she never uses — AI buzzwords to avoid"],
+  "empathy_phrases": ["phrases she uses to validate student anxiety"],
+  "average_short_sentence_words": number,
+  "average_long_sentence_words": number,
+  "tone_adjectives": ["5 adjectives that best describe her voice"],
+  "three_example_sentences": ["3 verbatim sentences from transcripts that perfectly capture her voice"]
+}
+
+Return ONLY valid JSON. No explanation.

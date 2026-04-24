@@ -18,3 +18,6 @@ google-auth-oauthlib==1.2.1
 
 # Background scheduler
 apscheduler==3.11.0
+
+# YouTube transcript scraper (for tone profile extraction)
+youtube-transcript-api==0.6.2

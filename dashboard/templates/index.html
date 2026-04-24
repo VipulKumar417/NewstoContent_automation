@@ -47,7 +47,17 @@
         </button>
       </nav>
 
-      <div class="p-6">
+      <div class="p-6 pb-2">
+        <div class="bg-slate-800 rounded-xl p-4 text-xs text-slate-400 border border-slate-700">
+          <p class="font-medium text-slate-300 mb-2">Brand Voice</p>
+          <p class="mb-3 leading-tight text-slate-500">Tone profile last updated:<br><span id="tone-updated" class="text-slate-400 font-mono text-[10px]">Check tone_profile.json</span></p>
+          <button onclick="refreshTone()" class="w-full py-2 bg-slate-700 hover:bg-slate-600 text-white rounded-lg transition-colors font-medium cursor-pointer">
+            <i class="fa-brands fa-youtube mr-1"></i> Refresh Voice
+          </button>
+        </div>
+      </div>
+
+      <div class="p-6 pt-2">
         <div class="bg-slate-800 rounded-xl p-4 text-xs text-slate-400 border border-slate-700">
           <p class="font-medium text-slate-300 mb-1">Status</p>
           <p class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-green-400 animate-pulse"></span>
@@ -69,6 +79,10 @@
           <h2 id="page-title" class="text-2xl font-semibold text-slate-800">Trend Radar</h2>
         </div>
         <div class="flex items-center gap-4" id="header-actions">
+          <button onclick="toggleArchived()" id="btn-archive"
+            class="px-5 py-2.5 bg-brand-50 border border-brand-200 text-brand-700 rounded-xl font-medium shadow-sm hover:shadow hover:border-brand-300 transition-all active:scale-95 flex items-center gap-2">
+            <i class="fa-solid fa-clock-rotate-left"></i> Load Older Articles
+          </button>
           <button onclick="fetchNews(true)"
             class="px-5 py-2.5 bg-white border border-slate-200 text-slate-700 rounded-xl font-medium shadow-sm hover:shadow hover:border-slate-300 transition-all active:scale-95 flex items-center gap-2">
             <i class="fa-solid fa-rotate-right"></i> Scrape Fresh

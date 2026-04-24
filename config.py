@@ -2,9 +2,9 @@
 config.py — Central configuration for EpiCred Content Automation Tool
 Loads all API keys and constants from .env
 
-Supports up to 3 keys per service for automatic rotation:
-  GEMINI_API_KEY_1, GEMINI_API_KEY_2, GEMINI_API_KEY_3
-  NEWSDATA_API_KEY_1, NEWSDATA_API_KEY_2, NEWSDATA_API_KEY_3
+Supports up to 40 keys per service for automatic rotation:
+  GEMINI_API_KEY_1 … GEMINI_API_KEY_33 (current)
+  NEWSDATA_API_KEY_1 … NEWSDATA_API_KEY_3
 """
 import os
 from dotenv import load_dotenv
@@ -12,15 +12,15 @@ from dotenv import load_dotenv
 load_dotenv()
 
 
-# ── Helper: collect up to 3 numbered keys for a service ──────────────────────
+# ── Helper: collect up to 40 numbered keys for a service ─────────────────────
 def _load_keys(base_env: str) -> list[str]:
     """
-    Load up to 3 API keys from env vars named <BASE>_1, <BASE>_2, <BASE>_3.
+    Load up to 40 API keys from env vars named <BASE>_1 … <BASE>_40.
     Also accepts the plain <BASE> name as key #1 for backwards compatibility.
     Filters out empty / placeholder values.
     """
     candidates = [os.getenv(base_env, "")]
-    for i in range(1, 21):
+    for i in range(1, 41):
         candidates.append(os.getenv(f"{base_env}_{i}", ""))
     return [k.strip() for k in candidates if k and not k.startswith("your_")]
 

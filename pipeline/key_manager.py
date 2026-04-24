@@ -1,8 +1,9 @@
 """
 key_manager.py — Automatic API Key Rotation for EpiCred
 
-Supports up to 3 keys per service. When a key hits a rate-limit or quota
-error, it is marked exhausted and the next key is tried automatically.
+Supports up to 40 keys per service (currently 33 Gemini keys).
+When a key hits a rate-limit or quota error, it is marked exhausted
+and the next key is tried automatically.
 
 Usage:
     from pipeline.key_manager import gemini_keys, newsdata_keys
@@ -29,6 +30,12 @@ _QUOTA_SIGNALS = (
     "limit exceeded",
     "dailylimitexceeded",
     "usagelimitexceeded",
+    "401",
+    "unauthorized",
+    "402",
+    "payment required",
+    "403",
+    "forbidden",
 )
 
 
@@ -43,8 +50,9 @@ class KeyManager:
     Thread-safe round-robin key rotator with time-based exhaustion reset.
 
     Keys marked exhausted are automatically un-exhausted after `cooldown_seconds`
-    (default 65s — just over Gemini's 1-minute rate-limit window). This prevents
-    the manager from getting permanently locked out across requests.
+    (default 45s — with 33 keys the pool cycles fast enough to stay under
+    Gemini's per-key rate window). This prevents the manager from getting
+    permanently locked out across requests.
 
     Args:
         keys:             List of API key strings.
@@ -52,7 +60,7 @@ class KeyManager:
         cooldown_seconds: How long (s) before an exhausted key is retried.
     """
 
-    def __init__(self, keys: list[str], service_name: str, cooldown_seconds: int = 65):
+    def __init__(self, keys: list[str], service_name: str, cooldown_seconds: int = 45):
         self._service = service_name
         self._cooldown = cooldown_seconds
         self._keys = [k for k in keys if k and not k.startswith("your_")]

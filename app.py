@@ -102,5 +102,19 @@ def reset_keys():
     logging.info("All API key exhaustion states have been reset.")
     return jsonify({"success": True, "message": "All API key exhaustion states reset."})
 
+@app.route('/refresh-tone', methods=['POST'])
+def refresh_tone():
+    """Re-scrapes YouTube transcripts and regenerates tone profile."""
+    from pipeline.tone_extractor import VIDEO_IDS, get_transcripts, extract_tone_profile
+    try:
+        transcripts = get_transcripts(VIDEO_IDS)
+        profile = extract_tone_profile(transcripts)
+        # Reload the global tone profile in content_generator
+        import pipeline.content_generator as cg
+        cg._TONE_PROFILE = profile
+        return jsonify({"status": "success", "message": "Tone profile refreshed from YouTube."})
+    except Exception as e:
+        return jsonify({"status": "error", "message": str(e)}), 500
+
 if __name__ == '__main__':
     app.run(debug=True, port=5000)
